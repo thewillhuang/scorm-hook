@@ -1,0 +1,8 @@
+{
+  "name": "scrom-provider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:thewillhuang/scrom-provider.git",
+  "author": "William Huang <will.h86@gmail.com>",
+  "license": "MIT"
+}
