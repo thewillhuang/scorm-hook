@@ -1,5 +1,6 @@
+use actix_cors::Cors;
 use actix_files as fs;
-use actix_web::{middleware, web, App, HttpRequest, HttpServer, Responder};
+use actix_web::{http, middleware, web, App, HttpRequest, HttpServer, Responder};
 use env_logger;
 use listenfd::ListenFd;
 
@@ -20,6 +21,14 @@ fn main() {
         App::new()
             .wrap(middleware::Logger::default())
             .wrap(middleware::Compress::default())
+            .wrap(
+                Cors::new() // <- Construct CORS middleware builder
+                    .allowed_origin("All")
+                    .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
+                    .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+                    .allowed_header(http::header::CONTENT_TYPE)
+                    .max_age(3600),
+            )
             .route("/", web::get().to(index))
             .service(
                 fs::Files::new("/courses", "./courses/")
