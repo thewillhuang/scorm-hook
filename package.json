@@ -8,6 +8,10 @@
   "prettier": {
     "trailingComma": "es5"
   },
+  "scripts": {
+    "dev": "webpack-dev-server --progress --host 0.0.0.0 --hot --inline --devtool eval-source-map --colors --mode development",
+    "build": "webpack --mode production --devtool source-map --env.BASEURL='https://api.appliedmedical.com/MyApplied' --env.ISPREVIEW=false --env.AUTHBASEURL='https://api.appliedmed.com/Authdev' --env.CONTENTURL='https://my.appliedmedical.com/content'"
+  },
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
@@ -63,6 +67,7 @@
     "react": "^16.12.0",
     "recharts": "^1.8.5",
     "responsive-loader": "^1.2.0",
+    "sharp": "^0.23.2",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
     "url-loader": "^2.2.0",

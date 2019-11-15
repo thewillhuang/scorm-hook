@@ -2,8 +2,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const MomentTimezoneDataPlugin = require("moment-timezone-data-webpack-plugin");
-const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
+// const MomentTimezoneDataPlugin = require("moment-timezone-data-webpack-plugin");
+// const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const R = require("ramda");
 // const WorkboxPlugin = require("workbox-webpack-plugin");
@@ -56,7 +56,7 @@ module.exports = (env, argv) => {
         "ramda",
         "date-fns",
         "recharts",
-        "emotion",
+        // "emotion",
         ["@babel/proposal-pipeline-operator", { proposal: "smart" }],
         // [
         //   "import",
@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
   const htmlWebpackOptions = {
     template: "./src/template.html",
     inlineSource: "runtime",
-    favicon: path.join(__dirname, "./src/_shared/images/favicon.png"),
+    // favicon: path.join(__dirname, "./src/_shared/images/favicon.png"),
     chunksSortMode: "none",
     minify: {
       removeComments: true,
@@ -108,12 +108,13 @@ module.exports = (env, argv) => {
   const config = {
     entry: {
       index: [
-        "core-js/stable",
-        "regenerator-runtime/runtime",
-        // "raf/polyfill",
+        // "core-js/stable",
+        // "regenerator-runtime/runtime",
         "./src/index.js",
       ],
-      // timezonePolyfill: ["date-time-format-timezone"],
+    },
+    externals: {
+      react: "react",
     },
     module: {
       rules: [
@@ -219,9 +220,9 @@ module.exports = (env, argv) => {
     plugins: [
       new CaseSensitivePathsPlugin(),
       new HtmlWebpackPlugin(htmlWebpackOptions),
-      new HtmlWebpackPlugin(
-        Object.assign({ filename: "pages/404.html" }, htmlWebpackOptions)
-      ),
+      // new HtmlWebpackPlugin(
+      //   Object.assign({ filename: "pages/404.html" }, htmlWebpackOptions)
+      // ),
       new webpack.DefinePlugin({
         BASEURL: JSON.stringify(R.pathOr(BASEURL, ["BASEURL"], env)),
         AUTHBASEURL: JSON.stringify(
@@ -231,11 +232,11 @@ module.exports = (env, argv) => {
         CONTENTURL: JSON.stringify(R.pathOr(CONTENTURL, ["CONTENTURL"], env)),
         DEVMODE: JSON.stringify(devMode),
       }),
-      new MomentTimezoneDataPlugin({
-        startYear: currentYear - 2,
-        endYear: currentYear + 2,
-      }),
-      new MomentLocalesPlugin(),
+      // new MomentTimezoneDataPlugin({
+      //   startYear: currentYear - 2,
+      //   endYear: currentYear + 2,
+      // }),
+      // new MomentLocalesPlugin(),
       new HtmlWebpackInlineSourcePlugin(),
     ],
     resolve: {
@@ -276,7 +277,7 @@ module.exports = (env, argv) => {
       jsonpFunction: `webpackJsonp_${pkg.name}`,
     };
     config.optimization = {
-      runtimeChunk: "single",
+      // runtimeChunk: "single",
       minimizer: [
         new TerserPlugin({
           // parallel: true,
