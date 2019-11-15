@@ -45,10 +45,10 @@ module.exports = (env, argv) => {
             targets: "> 0.25%, not dead",
             useBuiltIns: "usage",
             corejs: 3,
-            modules: false
-          }
+            modules: false,
+          },
         ],
-        ["@babel/preset-react", { development: devMode }]
+        ["@babel/preset-react", { development: devMode }],
       ],
       plugins: [
         "@loadable/babel-plugin",
@@ -74,16 +74,16 @@ module.exports = (env, argv) => {
           {
             filetypes: {
               ".scss": { syntax: "postcss-scss" },
-              ".sass": { syntax: "postcss-sass" }
+              ".sass": { syntax: "postcss-sass" },
             },
             handleMissingStyleName: "throw",
             webpackHotModuleReloading: devMode,
             autoResolveMultipleImports: true,
-            generateScopedName: scopedClassNames
-          }
-        ]
-      ]
-    }
+            generateScopedName: scopedClassNames,
+          },
+        ],
+      ],
+    },
   };
 
   const htmlWebpackOptions = {
@@ -101,8 +101,8 @@ module.exports = (env, argv) => {
       keepClosingSlash: true,
       minifyJS: true,
       minifyCSS: true,
-      minifyURLs: true
-    }
+      minifyURLs: true,
+    },
   };
 
   const config = {
@@ -111,8 +111,8 @@ module.exports = (env, argv) => {
         "core-js/stable",
         "regenerator-runtime/runtime",
         // "raf/polyfill",
-        "./src/index.js"
-      ]
+        "./src/index.js",
+      ],
       // timezonePolyfill: ["date-time-format-timezone"],
     },
     module: {
@@ -128,12 +128,12 @@ module.exports = (env, argv) => {
           options: {
             dynamicTyping: true,
             header: true,
-            skipEmptyLines: true
-          }
+            skipEmptyLines: true,
+          },
         },
         {
           test: /\.(md)$/i,
-          use: "raw-loader"
+          use: "raw-loader",
         },
         {
           test: /\.(woff(2)?|ttf|eot|svg|gif)(\?v=\d+\.\d+\.\d+)?$/,
@@ -142,10 +142,10 @@ module.exports = (env, argv) => {
               loader: "url-loader",
               options: {
                 limit: 8192,
-                name: "[contenthash:8].[ext]"
-              }
-            }
-          ]
+                name: "[contenthash:8].[ext]",
+              },
+            },
+          ],
         },
         {
           test: /\.(|pdf|txt|doc|xlsx)(\?v=\d+\.\d+\.\d+)?$/,
@@ -154,10 +154,10 @@ module.exports = (env, argv) => {
               loader: "file-loader",
               options: {
                 limit: 8192,
-                name: "[contenthash:8].[ext]"
-              }
-            }
-          ]
+                name: "[contenthash:8].[ext]",
+              },
+            },
+          ],
         },
         {
           test: /\.(jpe?g|png)$/i,
@@ -168,15 +168,15 @@ module.exports = (env, argv) => {
                 name: "[contenthash:8].[ext]",
                 adapter: require("responsive-loader/sharp"),
                 sizes: devMode ? [2000] : sizes,
-                disable: devMode
-              }
-            }
-          ]
+                disable: devMode,
+              },
+            },
+          ],
         },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          loaders: [babel]
+          loaders: [babel],
         },
         {
           test: /\.css$/,
@@ -184,14 +184,14 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-              options: devMode ? {} : { sourceMap: true }
+              options: devMode ? {} : { sourceMap: true },
             },
             {
               loader: "css-loader",
-              options: { importLoaders: 1, sourceMap: true }
+              options: { importLoaders: 1, sourceMap: true },
             },
-            { loader: "postcss-loader", options: { sourceMap: true } }
-          ]
+            { loader: "postcss-loader", options: { sourceMap: true } },
+          ],
         },
         {
           test: /\.scss$/,
@@ -199,7 +199,7 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-              options: devMode ? {} : { sourceMap: true }
+              options: devMode ? {} : { sourceMap: true },
             },
             {
               loader: "css-loader",
@@ -207,15 +207,14 @@ module.exports = (env, argv) => {
                 importLoaders: 1,
                 sourceMap: true,
                 modules: {
-                  localIdentName: scopedClassNames
-                }
-              }
+                  localIdentName: scopedClassNames,
+                },
+              },
             },
             { loader: "postcss-loader", options: { sourceMap: true } },
-            { loader: "sass-loader", options: { sourceMap: true } }
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
     plugins: [
       new CaseSensitivePathsPlugin(),
@@ -230,14 +229,14 @@ module.exports = (env, argv) => {
         ),
         ISPREVIEW: JSON.stringify(R.pathOr(ISPREVIEW, ["ISPREVIEW"], env)),
         CONTENTURL: JSON.stringify(R.pathOr(CONTENTURL, ["CONTENTURL"], env)),
-        DEVMODE: JSON.stringify(devMode)
+        DEVMODE: JSON.stringify(devMode),
       }),
       new MomentTimezoneDataPlugin({
         startYear: currentYear - 2,
-        endYear: currentYear + 2
+        endYear: currentYear + 2,
       }),
       new MomentLocalesPlugin(),
-      new HtmlWebpackInlineSourcePlugin()
+      new HtmlWebpackInlineSourcePlugin(),
     ],
     resolve: {
       // alias: {
@@ -245,10 +244,10 @@ module.exports = (env, argv) => {
       //   "scheduler/tracing": "scheduler/tracing-profiling",
       // },
       alias: {
-        "react-hook-form": "react-hook-form/dist/react-hook-form.ie11.js"
+        "react-hook-form": "react-hook-form/dist/react-hook-form.ie11.js",
       },
-      extensions: [".js", ".jsx", ".json", ".scss"]
-    }
+      extensions: [".js", ".jsx", ".json", ".scss"],
+    },
   };
 
   if (devMode) {
@@ -256,15 +255,15 @@ module.exports = (env, argv) => {
       // compress: true,
       // serveIndex: true,
       headers: {
-        "Cache-Control": "no-cache"
+        "Cache-Control": "no-cache",
       },
       useLocalIp: true,
       historyApiFallback: true,
-      overlay: true
+      overlay: true,
     };
     config.output = {
       publicPath: "/",
-      jsonpFunction: `webpackJsonp_${pkg.name}`
+      jsonpFunction: `webpackJsonp_${pkg.name}`,
     };
     config.plugins = config.plugins.concat([new webpack.NamedModulesPlugin()]);
   }
@@ -274,7 +273,7 @@ module.exports = (env, argv) => {
       publicPath: "/",
       filename: "[contenthash:8].js",
       chunkFilename: "[contenthash:8].js",
-      jsonpFunction: `webpackJsonp_${pkg.name}`
+      jsonpFunction: `webpackJsonp_${pkg.name}`,
     };
     config.optimization = {
       runtimeChunk: "single",
@@ -290,29 +289,29 @@ module.exports = (env, argv) => {
               // into invalid ecma 5 code. This is why the 'compress' and 'output'
               // sections only apply transformations that are ecma 5 safe
               // https://github.com/facebook/create-react-app/pull/4234
-              ecma: 8
+              ecma: 8,
             },
             compress: {
               ecma: 5,
               warnings: false,
               inline: 2,
               comparisons: false,
-              drop_console: R.pathOr(true, ["DROP_CONSOLE"], env)
+              drop_console: R.pathOr(true, ["DROP_CONSOLE"], env),
               // drop_console: false,
             },
             output: {
               ecma: 5,
               comments: false,
-              ascii_only: true
-            }
-          }
-        })
-      ]
+              ascii_only: true,
+            },
+          },
+        }),
+      ],
     };
     config.plugins = config.plugins.concat([
       new MiniCssExtractPlugin({
         filename: "[contenthash:8].css",
-        chunkFilename: "[contenthash:8].css"
+        chunkFilename: "[contenthash:8].css",
       }),
       // new ImageminWebpackPlugin({
       //   test: /\.(jpe?g|png|svg)$/i,
@@ -338,7 +337,7 @@ module.exports = (env, argv) => {
       //     ],
       //   },
       // }),
-      new webpack.HashedModuleIdsPlugin()
+      new webpack.HashedModuleIdsPlugin(),
       // new WorkboxPlugin.GenerateSW({
       //   // these options encourage the ServiceWorkers to get in there fast
       //   // and not allow any straggling "old" SWs to hang around
