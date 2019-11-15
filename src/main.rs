@@ -1,7 +1,7 @@
 use actix_files as fs;
-use actix_web::{web, App, HttpRequest, HttpServer, Responder};
+use actix_web::{middleware, web, App, HttpRequest, HttpServer, Responder};
+use env_logger;
 use listenfd::ListenFd;
-// use std::path::PathBuf;
 
 fn index(_req: HttpRequest) -> impl Responder {
     "Hello World!"
@@ -13,11 +13,20 @@ fn index(_req: HttpRequest) -> impl Responder {
 // }
 
 fn main() {
+    std::env::set_var("RUST_LOG", "actix_web=info");
+    env_logger::init();
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(|| {
         App::new()
+            .wrap(middleware::Logger::default())
+            .wrap(middleware::Compress::default())
             .route("/", web::get().to(index))
-            .service(fs::Files::new("/static", ".").show_files_listing())
+            .service(
+                fs::Files::new("/courses", "./courses/")
+                    .show_files_listing()
+                    .use_etag(true)
+                    .use_last_modified(true),
+            )
     });
 
     server = if let Some(l) = listenfd.take_tcp_listener(0).unwrap() {
