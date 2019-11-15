@@ -6,3 +6,4 @@ babelCache
 dist
 terserCache
 courses
+.DS_Store
