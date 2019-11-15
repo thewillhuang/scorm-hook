@@ -14,11 +14,6 @@ const path = require("path");
 
 const currentYear = new Date().getFullYear();
 
-const BASEURL = "https://api.appliedmedical.com/MyApplied";
-const AUTHBASEURL = "https://api.appliedmed.com/Authdev";
-const ISPREVIEW = false;
-const CONTENTURL = "http://webassets.appliedmedical.com/content";
-
 const sizes = Array.apply(null, Array(6))
   .map(function(_, i) {
     return i * 700;
@@ -223,15 +218,15 @@ module.exports = (env, argv) => {
       // new HtmlWebpackPlugin(
       //   Object.assign({ filename: "pages/404.html" }, htmlWebpackOptions)
       // ),
-      new webpack.DefinePlugin({
-        BASEURL: JSON.stringify(R.pathOr(BASEURL, ["BASEURL"], env)),
-        AUTHBASEURL: JSON.stringify(
-          R.pathOr(AUTHBASEURL, ["AUTHBASEURL"], env)
-        ),
-        ISPREVIEW: JSON.stringify(R.pathOr(ISPREVIEW, ["ISPREVIEW"], env)),
-        CONTENTURL: JSON.stringify(R.pathOr(CONTENTURL, ["CONTENTURL"], env)),
-        DEVMODE: JSON.stringify(devMode),
-      }),
+      // new webpack.DefinePlugin({
+      //   BASEURL: JSON.stringify(R.pathOr(BASEURL, ["BASEURL"], env)),
+      //   AUTHBASEURL: JSON.stringify(
+      //     R.pathOr(AUTHBASEURL, ["AUTHBASEURL"], env)
+      //   ),
+      //   ISPREVIEW: JSON.stringify(R.pathOr(ISPREVIEW, ["ISPREVIEW"], env)),
+      //   CONTENTURL: JSON.stringify(R.pathOr(CONTENTURL, ["CONTENTURL"], env)),
+      //   DEVMODE: JSON.stringify(devMode),
+      // }),
       // new MomentTimezoneDataPlugin({
       //   startYear: currentYear - 2,
       //   endYear: currentYear + 2,
@@ -272,8 +267,8 @@ module.exports = (env, argv) => {
   if (!devMode) {
     config.output = {
       publicPath: "/",
-      filename: "[contenthash:8].js",
-      chunkFilename: "[contenthash:8].js",
+      // filename: "[contenthash:8].js",
+      // chunkFilename: "[contenthash:8].js",
       jsonpFunction: `webpackJsonp_${pkg.name}`,
     };
     config.optimization = {
