@@ -1,7 +1,7 @@
 use actix_cors::Cors;
 use actix_files as fs;
 use actix_web::{http, middleware, web, App, HttpRequest, HttpServer, Responder};
-use env_logger;
+// use env_logger;
 use listenfd::ListenFd;
 
 fn index(_req: HttpRequest) -> impl Responder {
@@ -14,18 +14,21 @@ fn index(_req: HttpRequest) -> impl Responder {
 // }
 
 fn main() {
-    std::env::set_var("RUST_LOG", "actix_web=info");
-    env_logger::init();
+    // std::env::set_var("RUST_LOG", "actix_web=info");
+    // env_logger::init();
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(|| {
         App::new()
-            .wrap(middleware::Logger::default())
+            // .wrap(middleware::Logger::default())
             .wrap(middleware::Compress::default())
             .wrap(
                 Cors::new() // <- Construct CORS middleware builder
                     .allowed_origin("All")
                     .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
-                    .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+                    .allowed_headers(vec![
+                        http::header::AUTHORIZATION,
+                        http::header::ACCEPT,
+                    ])
                     .allowed_header(http::header::CONTENT_TYPE)
                     .max_age(3600),
             )
