@@ -2,7 +2,7 @@
 
 ```js
 import React from "react";
-import scormHook from "@thewillhuang/scrom-provider";
+import scormHook from "@thewillhuang/scorm-hook";
 
 const LMS = () => {
   const state = scormHook();
