@@ -109,7 +109,12 @@ module.exports = (env, argv) => {
       ],
     },
     externals: {
-      react: "react",
+      react: {
+        commonjs: "react",
+        commonjs2: "react",
+        amd: "react",
+        root: "_",
+      },
     },
     module: {
       rules: [
@@ -267,9 +272,11 @@ module.exports = (env, argv) => {
   if (!devMode) {
     config.output = {
       publicPath: "/",
+      library: "@thewillhuang/scorm-hook",
+      libraryTarget: "umd",
       // filename: "[contenthash:8].js",
       // chunkFilename: "[contenthash:8].js",
-      jsonpFunction: `webpackJsonp_${pkg.name}`,
+      // jsonpFunction: `webpackJsonp_${pkg.name}`,
     };
     config.optimization = {
       // runtimeChunk: "single",

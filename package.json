@@ -1,5 +1,5 @@
 {
-  "name": "@thewillhuang/scrom-provider",
+  "name": "@thewillhuang/scorm-hook",
   "version": "1.0.4",
   "main": "dist/index.js",
   "repository": "git@github.com:thewillhuang/scrom-provider.git",
