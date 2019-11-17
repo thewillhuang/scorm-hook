@@ -85,7 +85,7 @@ const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
   useEffect(() => {
     setupLmsApi();
   }, []);
-  return { store, reset };
+  return [store, setStore];
 };
 
 export default scormHook;
