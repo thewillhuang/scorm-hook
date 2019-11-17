@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { includes } from "ramda";
 
-const scormHook = ({ state: defaultStore, config: cfg }) => {
+const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
   const [store, setStore] = useState(defaultStore);
 
   const defaults = {
