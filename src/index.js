@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { includes } from "ramda";
 
 const scormHook = ({ state: defaultStore, config: cfg }) => {
   const [store, setStore] = useState(defaultStore);
@@ -19,6 +20,27 @@ const scormHook = ({ state: defaultStore, config: cfg }) => {
     SetValue: (key, value) => {
       console.log("setting value", key, value);
       setStore({ ...store, [key]: value });
+      if (
+        includes(key, [
+          "cmi.completion_status",
+          "cmi.success_status",
+          "cmi.core.lesson_status",
+        ])
+      ) {
+        setStore({ ...store, courseCompleted: value });
+      }
+      if (includes(key, ["cmi.score.scaled", "cmi.core.score.raw"])) {
+        setStore({ ...store, courseScore: value });
+      }
+      if (includes(key, ["cmi.session_time", "cmi.core.session_time"])) {
+        setStore({ ...store, courseTimeSpent: value });
+      }
+      if (includes(key, ["cmi.location", "cmi.core.lesson_location"])) {
+        setStore({ ...store, courseBookmark: value });
+      }
+      if (includes(key, ["cmi.exit", "cmi.core.exit"])) {
+        setStore({ ...store, courseExitMethod: value });
+      }
       return store[key];
     },
     Commit: () => {
