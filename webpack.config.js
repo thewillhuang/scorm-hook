@@ -219,7 +219,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CaseSensitivePathsPlugin(),
-      new HtmlWebpackPlugin(htmlWebpackOptions),
+      // new HtmlWebpackPlugin(htmlWebpackOptions),
       // new HtmlWebpackPlugin(
       //   Object.assign({ filename: "pages/404.html" }, htmlWebpackOptions)
       // ),
@@ -237,7 +237,7 @@ module.exports = (env, argv) => {
       //   endYear: currentYear + 2,
       // }),
       // new MomentLocalesPlugin(),
-      new HtmlWebpackInlineSourcePlugin(),
+      // new HtmlWebpackInlineSourcePlugin(),
     ],
     resolve: {
       // alias: {

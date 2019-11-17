@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-const scormHook = cfg => {
-  const [store, setStore] = useState({});
+const scormHook = (defaultStore = {}, cfg) => {
+  const [store, setStore] = useState(defaultStore);
 
   const defaults = {
     Initialize: () => {
