@@ -78,10 +78,14 @@ const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
     global.API = SCORMOLD;
     global.API_1484_11 = scorm2004;
   };
+
+  const reset = newConfig => {
+    setStore(newConfig);
+  };
   useEffect(() => {
     setupLmsApi();
   }, []);
-  return store;
+  return { store, reset };
 };
 
 export default scormHook;
