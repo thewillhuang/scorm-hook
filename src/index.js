@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { includes } from "ramda";
 
-const scormHook = (
-  { state = {}, setState = () => {}, config: cfg = {} } = {
+const useScormHook = (
+  { state: startingState = {}, config: cfg = {} } = {
     state: {},
-    setState: () => {},
     config: {},
   }
 ) => {
-  const defaults = {
+  const [state, setState] = useState(startingState);
+  const defaultConfig = {
     Initialize: () => {
       console.log("initialize called by course");
       return "true";
@@ -61,7 +61,7 @@ const scormHook = (
     },
   };
 
-  const config = { ...defaults, ...cfg };
+  const config = { ...defaultConfig, ...cfg };
 
   const SCORMOLD = {
     LMSInitialize: config.Initialize,
@@ -74,19 +74,23 @@ const scormHook = (
     LMSGetDiagnostic: config.GetDiagnostic,
   };
 
-  const scorm2004 = {
+  const SCORM2004 = {
     ...config,
   };
 
-  const setupLmsApi = () => {
-    global.API = SCORMOLD;
-    global.API_1484_11 = scorm2004;
-  };
-
   useEffect(() => {
+    const setupLmsApi = () => {
+      global.API = SCORMOLD;
+      global.API_1484_11 = SCORM2004;
+    };
     setupLmsApi();
+    return () => {
+      delete global.API;
+      delete global.API_1484_11;
+    };
   }, []);
-  return state;
+
+  return [state, setState];
 };
 
-export default scormHook;
+export default useScormHook;

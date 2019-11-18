@@ -7,7 +7,6 @@ import scormHook from "@thewillhuang/scorm-hook";
 const LMS = () => {
   const [state, setState] = scormHook({
     state: {},
-    setState: () => {},
     config: {},
   }); // starting state as state, config is an object with methods matching SCORM2004 standards methods visit https://scorm.com/scorm-explained/technical-scorm/run-time/ for more details
   console.log({ state });
