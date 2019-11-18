@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
     options: {
       cacheDirectory: "./babelCache",
       presets: [
-        "@babel/preset-flow",
+        // "@babel/preset-flow",
         [
           "@babel/preset-env",
           {
@@ -46,13 +46,13 @@ module.exports = (env, argv) => {
         ["@babel/preset-react", { development: devMode }],
       ],
       plugins: [
-        "@loadable/babel-plugin",
-        "lodash",
-        "ramda",
-        "date-fns",
-        "recharts",
-        // "emotion",
-        ["@babel/proposal-pipeline-operator", { proposal: "smart" }],
+        // "@loadable/babel-plugin",
+        // "lodash",
+        // "ramda",
+        // "date-fns",
+        // "recharts",
+        // // "emotion",
+        // ["@babel/proposal-pipeline-operator", { proposal: "smart" }],
         // [
         //   "import",
         //   {
@@ -62,21 +62,21 @@ module.exports = (env, argv) => {
         //   },
         // ],
         ["@babel/plugin-transform-runtime", { corejs: 3 }],
-        ["@babel/plugin-proposal-class-properties", { loose: true }],
-        "@babel/plugin-syntax-dynamic-import",
-        [
-          "react-css-modules",
-          {
-            filetypes: {
-              ".scss": { syntax: "postcss-scss" },
-              ".sass": { syntax: "postcss-sass" },
-            },
-            handleMissingStyleName: "throw",
-            webpackHotModuleReloading: devMode,
-            autoResolveMultipleImports: true,
-            generateScopedName: scopedClassNames,
-          },
-        ],
+        // ["@babel/plugin-proposal-class-properties", { loose: true }],
+        // "@babel/plugin-syntax-dynamic-import",
+        // [
+        //   "react-css-modules",
+        //   {
+        //     filetypes: {
+        //       ".scss": { syntax: "postcss-scss" },
+        //       ".sass": { syntax: "postcss-sass" },
+        //     },
+        //     handleMissingStyleName: "throw",
+        //     webpackHotModuleReloading: devMode,
+        //     autoResolveMultipleImports: true,
+        //     generateScopedName: scopedClassNames,
+        //   },
+        // ],
       ],
     },
   };

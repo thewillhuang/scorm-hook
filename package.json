@@ -1,6 +1,6 @@
 {
   "name": "@thewillhuang/scorm-hook",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "main": "dist/index.js",
   "repository": "git@github.com:thewillhuang/scrom-provider.git",
   "author": "William Huang <will.h86@gmail.com>",

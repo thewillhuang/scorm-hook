@@ -24,7 +24,7 @@ fn main() {
             .wrap(
                 Cors::new() // <- Construct CORS middleware builder
                     .allowed_origin("All")
-                    .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
+                    .allowed_methods(vec!["GET", "OPTIONS", "POST", "PUT", "DELETE"])
                     .allowed_headers(vec![
                         http::header::AUTHORIZATION,
                         http::header::ACCEPT,

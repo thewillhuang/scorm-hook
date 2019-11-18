@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { includes } from "ramda";
 
-const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
-  const [store, setStore] = useState(defaultStore);
-
+const scormHook = ({ state = {}, setState = () => {}, config: cfg = {} }) => {
   const defaults = {
     Initialize: () => {
       console.log("initialize called by course");
@@ -13,13 +11,13 @@ const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
       console.log("terminate called by course");
       return "true";
     },
-    GetValue: props => {
-      console.log("getting value", props);
-      return store[props] || "";
+    GetValue: key => {
+      console.log("getting value", key);
+      return state[key] || "";
     },
     SetValue: (key, value) => {
       console.log("setting value", key, value);
-      setStore({ ...store, [key]: value });
+      setState({ ...state, [key]: value });
       if (
         includes(key, [
           "cmi.completion_status",
@@ -27,21 +25,21 @@ const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
           "cmi.core.lesson_status",
         ])
       ) {
-        setStore({ ...store, courseCompleted: value });
+        setState({ ...state, courseCompleted: value });
       }
       if (includes(key, ["cmi.score.scaled", "cmi.core.score.raw"])) {
-        setStore({ ...store, courseScore: value });
+        setState({ ...state, courseScore: value });
       }
       if (includes(key, ["cmi.session_time", "cmi.core.session_time"])) {
-        setStore({ ...store, courseTimeSpent: value });
+        setState({ ...state, courseTimeSpent: value });
       }
       if (includes(key, ["cmi.location", "cmi.core.lesson_location"])) {
-        setStore({ ...store, courseBookmark: value });
+        setState({ ...state, courseBookmark: value });
       }
       if (includes(key, ["cmi.exit", "cmi.core.exit"])) {
-        setStore({ ...store, courseExitMethod: value });
+        setState({ ...state, courseExitMethod: value });
       }
-      return store[key];
+      return state[key];
     },
     Commit: () => {
       console.log("course asks for state saving");
@@ -79,13 +77,10 @@ const scormHook = ({ state: defaultStore = {}, config: cfg = {} }) => {
     global.API_1484_11 = scorm2004;
   };
 
-  const reset = newConfig => {
-    setStore(newConfig);
-  };
   useEffect(() => {
     setupLmsApi();
   }, []);
-  return [store, setStore];
+  return state;
 };
 
 export default scormHook;
