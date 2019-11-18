@@ -2,10 +2,10 @@
 
 ```js
 import React from "react";
-import scormHook from "@thewillhuang/scorm-hook";
+import useScormHook from "@thewillhuang/scorm-hook";
 
 const LMS = () => {
-  const [state, setState] = scormHook({
+  const [state, setState] = useScormHook({
     state: {},
     config: {},
   }); // starting state as state, config is an object with methods matching SCORM2004 standards methods visit https://scorm.com/scorm-explained/technical-scorm/run-time/ for more details
