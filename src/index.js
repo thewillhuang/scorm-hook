@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import { includes } from "ramda";
 
-const scormHook = ({ state = {}, setState = () => {}, config: cfg = {} }) => {
+const scormHook = (
+  { state = {}, setState = () => {}, config: cfg = {} } = {
+    state: {},
+    setState: () => {},
+    config: {},
+  }
+) => {
   const defaults = {
     Initialize: () => {
       console.log("initialize called by course");
